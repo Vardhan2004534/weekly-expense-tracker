@@ -97,6 +97,41 @@ public class WeeklyExpenseTracker extends JFrame {
         }
     }
 
+      private void showTotal() {
+
+        double total = 0;
+
+        for (Expense e : expenses) {
+            total += e.amount;
+        }
+
+        outputArea.append("\nTotal Weekly Expense = ₹"
+                + total + "\n\n");
+    }
+
+    private void showSummary() {
+
+        HashMap<String, Double> map = new HashMap<>();
+
+        for (Expense e : expenses) {
+            map.put(
+                    e.category,
+                    map.getOrDefault(e.category, 0.0)
+                            + e.amount
+            );
+        }
+
+        outputArea.append("\nCategory Summary\n");
+
+        for (String key : map.keySet()) {
+            outputArea.append(
+                    key + " : ₹" + map.get(key) + "\n"
+            );
+        }
+
+        outputArea.append("\n");
+    }
+
 public static void main(String[] args) {
 
         SwingUtilities.invokeLater(() -> {
