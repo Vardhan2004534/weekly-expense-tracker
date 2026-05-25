@@ -4,12 +4,62 @@ import java.awt.*;
 
 public class WeeklyExpenseTracker extends JFrame {
 
+    private JComboBox<String> dayBox;
+    private JComboBox<String> categoryBox;
+    private JTextField amountField;
+    private JTextField descriptionField;
+    private JTextArea outputArea;
+
+
     public WeeklyExpenseTracker() {
 
         setTitle("Weekly Expense Tracker");
         setSize(600, 500);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+
+        JPanel panel = new JPanel(new GridLayout(5, 2, 10, 10));
+
+        panel.add(new JLabel("Day"));
+        dayBox = new JComboBox<>(new String[]{
+                "Monday", "Tuesday", "Wednesday",
+                "Thursday", "Friday", "Saturday", "Sunday"
+        });
+        panel.add(dayBox);
+
+        panel.add(new JLabel("Category"));
+        categoryBox = new JComboBox<>(new String[]{
+                "Groceries", "Eating Out", "Petrol",
+                "Taxi", "Bills", "Rent", "Others"
+        });
+        panel.add(categoryBox);
+
+        panel.add(new JLabel("Amount"));
+        amountField = new JTextField();
+        panel.add(amountField);
+
+        panel.add(new JLabel("Description"));
+        descriptionField = new JTextField();
+        panel.add(descriptionField);
+
+        JButton addBtn = new JButton("Add Expense");
+        JButton totalBtn = new JButton("Weekly Total");
+
+        panel.add(addBtn);
+        panel.add(totalBtn);
+
+        add(panel, BorderLayout.NORTH);
+
+        outputArea = new JTextArea();
+        outputArea.setEditable(false);
+        add(new JScrollPane(outputArea), BorderLayout.CENTER);
+
+        JButton summaryBtn = new JButton("Category Summary");
+        add(summaryBtn, BorderLayout.SOUTH);
+
+        addBtn.addActionListener(e -> addExpense());
+        totalBtn.addActionListener(e -> showTotal());
+        summaryBtn.addActionListener(e -> showSummary());
 
        
     }
