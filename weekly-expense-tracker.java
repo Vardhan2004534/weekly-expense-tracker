@@ -10,6 +10,8 @@ public class WeeklyExpenseTracker extends JFrame {
     private JTextField descriptionField;
     private JTextArea outputArea;
 
+    private ArrayList<Expense> expenses = new ArrayList<>();
+
 
     public WeeklyExpenseTracker() {
 
@@ -64,11 +66,62 @@ public class WeeklyExpenseTracker extends JFrame {
        
     }
 
+      private void addExpense() {
+
+        try {
+            String day = (String) dayBox.getSelectedItem();
+            String category = (String) categoryBox.getSelectedItem();
+
+            double amount = Double.parseDouble(amountField.getText());
+
+            if (amount <= 0) {
+                JOptionPane.showMessageDialog(this,
+                        "Amount must be greater than 0");
+                return;
+            }
+
+            String desc = descriptionField.getText();
+
+            expenses.add(new Expense(day, category, amount, desc));
+
+            outputArea.append("Added -> " + day + " | "
+                    + category + " | ₹" + amount + " | "
+                    + desc + "\n");
+
+            amountField.setText("");
+            descriptionField.setText("");
+
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(this,
+                    "Enter valid amount");
+        }
+    }
+
 public static void main(String[] args) {
 
         SwingUtilities.invokeLater(() -> {
             new WeeklyExpenseTracker().setVisible(true);
         });
+    }
+}
+
+
+class Expense {
+
+    String day;
+    String category;
+    double amount;
+    String description;
+
+    Expense(String day,
+            String category,
+            double amount,
+            String description) {
+
+        this.day = day;
+        this.category = category;
+        this.amount = amount;
+        this.description = description;
     }
 }
 
