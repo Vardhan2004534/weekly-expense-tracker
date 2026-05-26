@@ -85,7 +85,7 @@ public class WeeklyExpenseTracker extends JFrame {
             expenses.add(new Expense(day, category, amount, desc));
 
             outputArea.append("Added -> " + day + " | "
-                    + category + " | ₹" + amount + " | "
+                    + category + " | $" + amount + " | "
                     + desc + "\n");
 
             amountField.setText("");
@@ -105,7 +105,7 @@ public class WeeklyExpenseTracker extends JFrame {
             total += e.amount;
         }
 
-        outputArea.append("\nTotal Weekly Expense = ₹"
+        outputArea.append("\nTotal Weekly Expense = $"
                 + total + "\n\n");
     }
 
@@ -125,7 +125,7 @@ public class WeeklyExpenseTracker extends JFrame {
 
         for (String key : map.keySet()) {
             outputArea.append(
-                    key + " : ₹" + map.get(key) + "\n"
+                    key + " : $" + map.get(key) + "\n"
             );
         }
 
